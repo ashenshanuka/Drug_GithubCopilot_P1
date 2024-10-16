@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>GitHub Copilot</h2>
+<h1>Drug List</h1>
+<form method="GET" action="{{ url_for('index') }}">
+    <input type="text" name="search" placeholder="Search by name or ID">
+    <button type="submit">Search</button>
+</form>
+<a href="{{ url_for('add_drug') }}">Add New Drug</a>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Expiration Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for drug in drugs %}
+        <tr>
+            <td>{{ drug.id }}</td>
+            <td>{{ drug.name }}</td>
+            <td>{{ drug.quantity }}</td>
+            <td>{{ drug.price }}</td>
+            <td>{{ drug.expiration_date }}</td>
+            <td>
+                <a href="{{ url_for('edit_drug', id=drug.id) }}">Edit</a>
+                <a href="{{ url_for('delete_drug', id=drug.id) }}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
